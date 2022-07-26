@@ -1,5 +1,5 @@
 <template>
-  <b-navbar toggle="lg" type="dark" variant="danger">
+  <b-navbar toggle="lg" type="dark" variant="danger" class="fixed-top">
     <b-container>
       <b-navbar-brand>Marvel</b-navbar-brand>
       <b-navbar-nav>
@@ -11,7 +11,10 @@
           />
         </b-nav-item>
         <b-nav-item>
-          <btn-custom @actionBtn="addCharacter" :variant="'light'" v-b-modal.modal>
+          <btn-custom 
+            @actionBtn="addCharacter" 
+            :variant="'light'" 
+            v-b-modal.modal>
             <template slot="icon">
               <b-icon-plus />
             </template>
