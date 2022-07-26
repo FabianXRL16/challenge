@@ -1,8 +1,9 @@
 <template>
   <div class="row">
     <item 
-      v-for="n in 20"
-      :key="n"
+       v-for="character in characters"
+      :key="character.id"
+      :character="character"
     />
     <div class="mt-2">
       <div class="spinner"></div>
@@ -19,7 +20,12 @@ export default {
   components: {
     item,
   },
-  props: {},
+  props: {
+    characters: {
+      type: Array,
+      default: () => []
+    }
+  },
   methods: {},
 };
 </script>

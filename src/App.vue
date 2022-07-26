@@ -14,7 +14,15 @@ export default {
   components: {
     navCustom,
     modalComponent
-  }
+  },
+  mounted() {
+    this.getData();
+  },
+  methods: {
+    getData: function () {
+      this.$store.dispatch("getCharacters");
+    },
+  },
 }
 </script>
 

@@ -1,20 +1,20 @@
 <template>
     <div class="col-xs-1 col-sm-2 col-md-4 col-lg-3">
         <b-card
-        title="American Captain"
-        img-src="https://picsum.photos/600/300/?image=25"
-        img-alt="Image"
-        img-top
-        tag="article"
-        class="mb-2"
-    >
+            :title="character.name"
+            :img-src="character.url"
+            img-alt="Image"
+            img-top
+            tag="article"
+            class="mb-2"
+        >
         <b-card-text>
-        Some quick example text to build on the card title and make up the bulk of the card's content.
+            {{ character.description }}
         </b-card-text>
 
         <b-button href="#" variant="primary">Editar</b-button>
         <template #footer>
-            <em>Modify: 13/12/1998</em>
+            <em>Fecha: {{ formatDate(character.date) }}</em>
         </template>
     </b-card>
     </div>
@@ -22,6 +22,21 @@
 
 <script>
 export default {
-  name: "ItemComponent"
+  name: "ItemComponent",
+  props: {
+    character: {
+      type: Object,
+      default: () => {},
+    },
+  },
+  methods: {
+    formatDate(newDate) {
+      return new Date(newDate).toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit"
+      });
+    },
   }
+}
 </script>

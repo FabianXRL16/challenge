@@ -1,6 +1,6 @@
 <template>
   <div class="home p-4" style="margin-top: 70px;">
-    <list-component />
+    <list-component :characters="characters" />
   </div>
 </template>
 
@@ -10,6 +10,14 @@ export default {
   name: 'Home',
   components: {
     listComponent
-  }
+  },
+  data() {
+    return {
+      characters: [],
+    };
+  },
+  created() {
+    this.characters = this.$store.state.characters;
+  },
 }
 </script>
