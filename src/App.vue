@@ -1,12 +1,22 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
+    <nav-custom />
     <router-view/>
+    <modal-component />
   </div>
 </template>
+
+<script>
+import navCustom from "@/components/custom/navCustom.vue";
+import modalComponent from "@/components/modalComponent.vue";
+export default {
+  name: "app",
+  components: {
+    navCustom,
+    modalComponent
+  }
+}
+</script>
 
 <style>
 #app {
