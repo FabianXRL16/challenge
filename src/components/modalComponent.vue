@@ -33,8 +33,12 @@ export default {
   },
   methods: {
     send() {
-        console.log("send")
-        this.$bvModal.hide("modal");
+      if( this.$store.state.characterUpgradeType) {
+        this.$store.dispatch("addCharacter", this.newData);
+      }else {
+        console.log("edit")
+      }
+      this.$bvModal.hide("modal");
     }
   },
 };

@@ -12,7 +12,13 @@
             {{ character.description }}
         </b-card-text>
 
-        <b-button href="#" variant="primary">Editar</b-button>
+        <b-button 
+          variant="primary" 
+          v-b-modal.modal 
+          @click="editCharacter
+        "> 
+          Editar
+        </b-button>
         <template #footer>
             <em>Fecha: {{ formatDate(character.date) }}</em>
         </template>
@@ -37,6 +43,9 @@ export default {
         day: "2-digit"
       });
     },
+    editCharacter() {
+      this.$store.dispatch("characterUpgradeType", false);
+    }
   }
 }
 </script>

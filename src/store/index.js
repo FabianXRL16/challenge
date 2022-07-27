@@ -14,6 +14,7 @@ export default new Vuex.Store({
     isLoading: false,
     limit: 20,
     page: 1,
+    characterUpgradeType: true,
   },
   getters: {
     getCharacteres: (state) => state.characters,
@@ -21,6 +22,8 @@ export default new Vuex.Store({
   actions: {
     getCharacters: ({ commit }) => commit("GET_CHARACTERS"),
     nextPage: ({ commit }) => commit("NEXT_PAGE"),
+    addCharacter: ({ commit }, newData) => commit("ADD_CHARACTER", newData),
+    characterUpgradeType: ({ commit }, config) => commit("UPGRADE_TYPE", config),
   },
   mutations: {
     GET_CHARACTERS(state) {
@@ -54,6 +57,14 @@ export default new Vuex.Store({
     NEXT_PAGE(state) {
       state.page++;
     },
+    ADD_CHARACTER(state, newData) {
+      if (!state.characters.some((i) => i.name === newData.name)) {
+        state.characters.unshift(newData);
+      }
+    },
+    UPGRADE_TYPE(state, config) {
+      state.characterUpgradeType = config;
+    }
   },
   modules: {
   }
