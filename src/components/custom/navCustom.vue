@@ -4,21 +4,14 @@
       <b-navbar-brand>Marvel</b-navbar-brand>
       <b-navbar-nav>
         <b-nav-item>
-          <input-custom
-            @actionInput="searchCharacter"
-            v-model="valueInput" 
-            :prepend="'Buscar'"
-          />
+          <input-custom @actionInput="searchCharacter" v-model="valueInput" />
         </b-nav-item>
         <b-nav-item>
-          <btn-custom 
-            @actionBtn="addCharacter" 
-            :variant="'light'" 
-            v-b-modal.modal>
-            <template slot="icon">
-              <b-icon-plus />
-            </template>
-          </btn-custom>
+          <btn-custom
+            @actionBtn="searchCharacter"
+            :variant="'light'"
+            :text="'Buscar'"
+          />
         </b-nav-item>
       </b-navbar-nav>
     </b-container>
@@ -26,27 +19,31 @@
 </template>
 
 <script>
-import btnCustom from "@/components/custom/btnCustom.vue"
-import inputCustom from "@/components/custom/inputCustom.vue"
+import btnCustom from '@/components/custom/btnCustom.vue'
+import inputCustom from '@/components/custom/inputCustom.vue'
 
 export default {
-  name: "navCustom",
+  name: 'navCustom',
   components: {
     btnCustom,
-    inputCustom
+    inputCustom,
   },
   data() {
     return {
-      valueInput: "",
+      valueInput: '',
     }
   },
   methods: {
     searchCharacter() {
-      console.log("search");
+      this.$store.dispatch('resetCharacters')
+      if (this.valueInput === '') {
+        this.$store.dispatch('resetCharacters')
+        this.$store.dispatch('getCharacters')
+      } else {
+        this.$store.dispatch('getSearchCharacterByName', this.valueInput)
+        this.valueInput = ''
+      }
     },
-    addCharacter() {
-      this.$store.dispatch("characterUpgradeType", true);
-    },
-  }
+  },
 }
 </script>

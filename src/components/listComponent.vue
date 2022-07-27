@@ -45,8 +45,8 @@ export default {
       let heightViewPort = event.target.scrollingElement.clientHeight
 
       if (heightScroll + heightViewPort >= heightList - 5) {
-        this.$store.dispatch("nextPage");
-        this.getData();
+        this.$store.dispatch('nextPage')
+        this.getData()
       }
     },
     moreData() {

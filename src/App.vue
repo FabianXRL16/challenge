@@ -1,26 +1,26 @@
 <template>
   <div id="app">
     <nav-custom />
-    <router-view/>
+    <router-view />
     <modal-component />
   </div>
 </template>
 
 <script>
-import navCustom from "@/components/custom/navCustom.vue";
-import modalComponent from "@/components/modalComponent.vue";
+import navCustom from '@/components/custom/navCustom.vue'
+import modalComponent from '@/components/modalComponent.vue'
 export default {
-  name: "app",
+  name: 'app',
   components: {
     navCustom,
-    modalComponent
+    modalComponent,
   },
   mounted() {
-    this.getData();
+    this.getData()
   },
   methods: {
     getData: function () {
-      this.$store.dispatch("getCharacters");
+      this.$store.dispatch('getCharacters')
     },
   },
 }

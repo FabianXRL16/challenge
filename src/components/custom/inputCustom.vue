@@ -1,45 +1,35 @@
 <template>
-  <b-input-group :prepend="prepend"
-    class="mr-sm-2"
-    type="text"
-  >
-    <b-form-input
-      v-model="inputModel"
-      @keyup.enter="keyUpCustom"
-    />
+  <b-input-group :prepend="prepend" class="mr-sm-2" type="text">
+    <b-form-input v-model="inputModel" @keyup.enter="keyUpCustom" />
   </b-input-group>
 </template>
 
 <script>
 export default {
-  name: "inputCustom",
+  name: 'inputCustom',
   props: {
     value: {
       type: String,
     },
-    placeholder: {
-        type: String,
-        default: "",
-    },
     prepend: {
       type: String,
-      defaul: ''
-    }
+      defaul: '',
+    },
   },
   computed: {
     inputModel: {
       get() {
-        return this.value;
+        return this.value
       },
       set(newValue) {
-        this.$emit("input", newValue);
+        this.$emit('input', newValue)
       },
     },
   },
   methods: {
     keyUpCustom() {
-      this.$emit("actionInput");
+      this.$emit('actionInput')
     },
   },
-};
+}
 </script>
