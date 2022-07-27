@@ -14,7 +14,8 @@ export default new Vuex.Store({
     isLoading: false,
     limit: 20,
     page: 1,
-    characterUpgradeType: true,
+    characterUpgradeType: true, //true is new Character and false es edit Character
+    selectedCharacterId: null
   },
   getters: {
     getCharacteres: (state) => state.characters,
@@ -24,6 +25,8 @@ export default new Vuex.Store({
     nextPage: ({ commit }) => commit("NEXT_PAGE"),
     addCharacter: ({ commit }, newData) => commit("ADD_CHARACTER", newData),
     characterUpgradeType: ({ commit }, config) => commit("UPGRADE_TYPE", config),
+    getIdSelectedCharacter: ({ commit }, id) => commit("GET_ID_SELECTED_CHARACTER", id),
+    editCharacter: ({ commit }, newData) => commit("EDIT_CHARACTER", newData),
   },
   mutations: {
     GET_CHARACTERS(state) {
@@ -64,7 +67,26 @@ export default new Vuex.Store({
     },
     UPGRADE_TYPE(state, config) {
       state.characterUpgradeType = config;
-    }
+    },
+    GET_ID_SELECTED_CHARACTER(state, id) {
+      state.selectedCharacterId = id;
+    },
+    EDIT_CHARACTER(state, newData) {
+      if (!state.characters.some((i) => i.name === newData.name)) {
+        let pos = state.characters.findIndex(
+          (i) => i.id === state.selectedCharacterId
+        );
+        state.characters[pos] = {
+          name: newData.name,
+          url: newData.url,
+          description: newData.description,
+          date: newData.date,
+          id: state.selectedCharacterId
+        };
+        state.characters.push({});
+        state.characters.pop();
+      }
+    },
   },
   modules: {
   }

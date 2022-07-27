@@ -45,6 +45,7 @@ export default {
     },
     editCharacter() {
       this.$store.dispatch("characterUpgradeType", false);
+      this.$store.dispatch("getIdSelectedCharacter", this.character.id);
     }
   }
 }

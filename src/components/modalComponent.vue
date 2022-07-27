@@ -36,7 +36,7 @@ export default {
       if( this.$store.state.characterUpgradeType) {
         this.$store.dispatch("addCharacter", this.newData);
       }else {
-        console.log("edit")
+        this.$store.dispatch("editCharacter", this.newData);
       }
       this.$bvModal.hide("modal");
     }
