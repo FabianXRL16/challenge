@@ -14,7 +14,8 @@ export default new Vuex.Store({
     limit: 20,
     page: 1,
     characterUpgradeType: true, //true is new Character and false es edit Character
-    selectedCharacterId: null,
+    selectedIdCharacter: null,
+    posOfSelectedCharacter: null
   },
   getters: {
     getCharacteres: (state) => state.characters,
@@ -24,13 +25,12 @@ export default new Vuex.Store({
     nextPage: ({ commit }) => commit('NEXT_PAGE'),
     addCharacter: ({ commit }, newData) => commit('ADD_CHARACTER', newData),
     characterUpgradeType: ({ commit }, config) =>
-      commit('UPGRADE_TYPE', config),
-    getIdSelectedCharacter: ({ commit }, id) =>
-      commit('GET_ID_SELECTED_CHARACTER', id),
+    commit('UPGRADE_TYPE', config),
     editCharacter: ({ commit }, newData) => commit('EDIT_CHARACTER', newData),
     getSearchCharacterByName: ({ commit }, name) =>
-      commit('GET_SEARCH_CHARACTER', name),
+    commit('GET_SEARCH_CHARACTER', name),
     resetCharacters: ({ commit }) => commit('RESET_CHARACTERS'),
+    getSelectedIdCharacter: ({ commit }, id) => commit('GET_SELECTED_ID_CHARACTER', id),
   },
   mutations: {
     GET_CHARACTERS(state) {
@@ -70,27 +70,19 @@ export default new Vuex.Store({
         state.characters.unshift(newData)
       }
     },
+    GET_SELECTED_ID_CHARACTER(state, id) {
+      let pos = state.characters.findIndex(i => i.id === id)
+      state.posOfSelectedCharacter = pos
+    },
     UPGRADE_TYPE(state, config) {
       state.characterUpgradeType = config
     },
-    GET_ID_SELECTED_CHARACTER(state, id) {
-      state.selectedCharacterId = id
-    },
     EDIT_CHARACTER(state, newData) {
       if (!state.characters.some((i) => i.name === newData.name)) {
-        let pos = state.characters.findIndex(
-          (i) => i.id === state.selectedCharacterId
-        )
-        state.characters[pos] = {
-          name: newData.name,
-          url: newData.url,
-          description: newData.description,
-          date: newData.date,
-          id: state.selectedCharacterId,
-        }
-        state.characters.push({})
-        state.characters.pop()
+        state.characters[state.posOfSelectedCharacter] = newData
       }
+      state.characters.push({});
+      state.characters.pop();
     },
     GET_SEARCH_CHARACTER(state, name) {
       state.isLoading = true
